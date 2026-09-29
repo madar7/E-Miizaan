@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>E-Miizaan — Dashboard</title>
+<link rel="stylesheet" href="css/styles.css" />
+</head>
+<body data-page="dashboard">
+  <div class="titlebar" id="titlebar"></div>
+  <div class="app-shell">
+    <aside class="sidebar" id="sidebar"></aside>
+
+    <main class="main">
+      <div id="pageMsg" class="msg" hidden></div>
+
+      <section class="panel">
+        <h2>Income's Data</h2>
+        <div class="tiles" id="incomeTiles"></div>
+      </section>
+
+      <section class="panel">
+        <h2>Expense's Data</h2>
+        <div class="tiles" id="expenseTiles"></div>
+      </section>
+
+      <div class="totals">
+        <section class="panel">
+          <h2>Total Income</h2>
+          <div class="tiles single" id="totalIncome"></div>
+        </section>
+        <section class="panel">
+          <h2>Total Expenses</h2>
+          <div class="tiles single" id="totalExpense"></div>
+        </section>
+        <section class="panel">
+          <h2>Balance</h2>
+          <div class="tiles single" id="totalBalance"></div>
+        </section>
+      </div>
+    </main>
+  </div>
+
+  <script src="js/config.js"></script>
+  <script src="js/api.js"></script>
+  <script src="js/icons.js"></script>
+  <script src="js/layout.js"></script>
+  <script src="js/dashboard.js"></script>
+</body>
+</html>

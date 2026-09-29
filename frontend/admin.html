@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>E-Miizaan — Users</title>
+<link rel="stylesheet" href="css/styles.css" />
+</head>
+<body data-page="users">
+  <div class="titlebar" id="titlebar"></div>
+  <div class="app-shell">
+    <aside class="sidebar" id="sidebar"></aside>
+
+    <main class="main">
+      <div id="pageMsg" class="msg" hidden></div>
+
+      <section class="panel" id="accessDenied" hidden>
+        <h2>Admin access required</h2>
+        <p>Only the owner (admin) can manage users.</p>
+      </section>
+
+      <section class="panel" id="adminContent">
+        <h2>All Users</h2>
+        <div class="filters">
+          <input type="text" id="searchInput" placeholder="Search name, username or email…" />
+          <select id="roleFilter">
+            <option value="">All roles</option>
+            <option value="user">User</option>
+            <option value="admin">Admin</option>
+          </select>
+        </div>
+
+        <div class="table-wrap">
+          <table>
+            <thead>
+              <tr>
+                <th>Name</th>
+                <th>Username</th>
+                <th>Email</th>
+                <th>Role</th>
+                <th>Status</th>
+                <th class="num">Transactions</th>
+                <th>Joined</th>
+                <th></th>
+              </tr>
+            </thead>
+            <tbody id="userTableBody"></tbody>
+          </table>
+        </div>
+        <div id="emptyState" class="empty-state" hidden>No users found.</div>
+      </section>
+    </main>
+  </div>
+
+  <script src="js/config.js"></script>
+  <script src="js/api.js"></script>
+  <script src="js/icons.js"></script>
+  <script src="js/layout.js"></script>
+  <script src="js/admin.js"></script>
+</body>
+</html>

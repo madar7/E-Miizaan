@@ -1,0 +1,8 @@
+{
+  "name": "e-miizaan-frontend",
+  "version": "1.0.0",
+  "description": "E-Miizaan frontend — static HTML/CSS/JS, talks to the backend API over HTTP",
+  "scripts": {
+    "start": "node server.js"
+  }
+}
