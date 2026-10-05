@@ -37,7 +37,7 @@ const auditLogSchema = new mongoose.Schema(
       ],
     },
     targetType: { type: String }, // e.g. "Transaction", "Category", "User"
-    targetId: { type: mongoose.Schema.Types.ObjectId },
+    targetId: { type: mongoose.Schema.Types.Mixed }, // ObjectId for most models; string for SystemSettings ("system")
     meta: { type: mongoose.Schema.Types.Mixed }, // small, non-sensitive context (e.g. amount, category name)
   },
   { timestamps: true }
