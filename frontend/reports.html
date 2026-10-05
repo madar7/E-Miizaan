@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>E-Miizaan — Reports</title>
+<script src="js/theme.js"></script>
+<script src="js/i18n/en.js"></script>
+<script src="js/i18n/so.js"></script>
+<script src="js/i18n/ar.js"></script>
+<script src="js/i18n/i18n.js"></script>
+<link rel="stylesheet" href="css/styles.css" />
+</head>
+<body data-page="reports">
+  <div class="titlebar" id="titlebar"></div>
+  <div class="app-shell">
+    <aside class="sidebar" id="sidebar"></aside>
+
+    <main class="main">
+      <div id="pageMsg" class="msg" hidden></div>
+
+      <section class="panel no-print">
+        <h2 data-i18n="generateReport">Generate Report</h2>
+        <div class="form-row">
+          <div class="field">
+            <label for="rangeSelect">Range</label>
+            <select id="rangeSelect">
+              <option value="daily">Daily (today)</option>
+              <option value="weekly">Weekly (this week)</option>
+              <option value="monthly" selected>Monthly (this month)</option>
+              <option value="yearly">Yearly (this year)</option>
+              <option value="custom">Custom range</option>
+            </select>
+          </div>
+          <div class="field" id="startField" hidden>
+            <label for="startDate">From</label>
+            <input type="date" id="startDate" />
+          </div>
+          <div class="field" id="endField" hidden>
+            <label for="endDate">To</label>
+            <input type="date" id="endDate" />
+          </div>
+          <div class="form-actions">
+            <button type="button" class="btn" id="generateBtn" data-i18n="generateReport">Generate</button>
+            <button type="button" class="btn ghost" id="printBtn" data-i18n="print">Print</button>
+            <button type="button" class="btn ghost" id="exportBtn" data-i18n="exportCsv">Export CSV</button>
+          </div>
+        </div>
+      </section>
+
+      <section class="panel" id="reportPanel" hidden>
+        <div id="reportHeader" style="display:flex;align-items:center;gap:12px;margin-bottom:16px;"></div>
+        <h2 id="reportTitle">Report</h2>
+        <div class="tiles" id="reportTiles"></div>
+
+        <div class="cat-grid" style="margin-top:16px;">
+          <div>
+            <h2 data-i18n="incomeCategories">Income by Category</h2>
+            <div class="table-wrap">
+              <table>
+                <thead><tr><th data-i18n="category">Category</th><th class="num">Total</th></tr></thead>
+                <tbody id="incomeCatBody"></tbody>
+              </table>
+            </div>
+          </div>
+          <div>
+            <h2 data-i18n="expenseCategories">Expenses by Category</h2>
+            <div class="table-wrap">
+              <table>
+                <thead><tr><th data-i18n="category">Category</th><th class="num">Total</th></tr></thead>
+                <tbody id="expenseCatBody"></tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <div id="emptyState" class="empty-state" hidden>Choose a range and click Generate to see a report.</div>
+    </main>
+  </div>
+
+  <script src="js/config.js"></script>
+  <script src="js/api.js"></script>
+  <script src="js/icons.js"></script>
+  <script src="js/layout.js"></script>
+  <script src="js/reports.js"></script>
+</body>
+</html>

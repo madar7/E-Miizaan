@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>E-Miizaan — Sign in</title>
+<script src="js/theme.js"></script>
+<script src="js/i18n/en.js"></script>
+<script src="js/i18n/so.js"></script>
+<script src="js/i18n/ar.js"></script>
+<script src="js/i18n/i18n.js"></script>
+<link rel="stylesheet" href="css/styles.css" />
+</head>
+<body>
+  <div class="auth-bg">
+    <div class="auth-window">
+      <div class="auth-left">
+        <div class="auth-avatar" id="authAvatar"></div>
+        <h1 class="auth-title">E-Miizaan</h1>
+        <p class="auth-sub">Income and Expenses Tracker</p>
+        <div class="auth-switch">
+          <div id="switchText">REGISTER HERE</div>
+          <button type="button" class="btn-outline" id="switchBtn">SIGNUP</button>
+        </div>
+      </div>
+
+      <div class="auth-right">
+        <div id="errorBox" class="msg error" hidden></div>
+
+        <form id="loginForm">
+          <h2>SIGN IN</h2>
+          <div class="field">
+            <label for="loginUsername">Username</label>
+            <input type="text" id="loginUsername" required autocomplete="username" autocapitalize="none" />
+          </div>
+          <div class="field">
+            <label for="loginPassword">Password</label>
+            <input type="password" id="loginPassword" required autocomplete="current-password" />
+          </div>
+          <label class="show-pass"><input type="checkbox" id="showLoginPass" /> Show Password</label>
+          <button type="submit" class="btn">Login</button>
+          <div class="auth-links"><a href="forgot-password.html">Forgot password?</a></div>
+        </form>
+
+        <form id="registerForm" hidden novalidate>
+          <h2>SIGN UP</h2>
+          <div class="onboarding-steps" aria-hidden="true">
+            <span class="onboarding-dot active" data-step-dot="1"></span>
+            <span class="onboarding-dot" data-step-dot="2"></span>
+            <span class="onboarding-dot" data-step-dot="3"></span>
+            <span class="onboarding-dot" data-step-dot="4"></span>
+          </div>
+
+          <!-- Step 1: basics -->
+          <div class="onboarding-step" data-step="1">
+            <div class="field">
+              <label for="regName">Full name</label>
+              <input type="text" id="regName" autocomplete="name" />
+            </div>
+            <div class="field">
+              <label for="regUsername">Username</label>
+              <input type="text" id="regUsername" minlength="3" maxlength="30" autocomplete="username" autocapitalize="none" />
+            </div>
+            <div class="field">
+              <label for="regEmail">Email</label>
+              <input type="email" id="regEmail" autocomplete="email" />
+            </div>
+            <div class="field">
+              <label for="regPassword">Password</label>
+              <input type="password" id="regPassword" minlength="6" autocomplete="new-password" />
+            </div>
+            <label class="show-pass"><input type="checkbox" id="showRegPass" /> Show Password</label>
+          </div>
+
+          <!-- Step 2: what will you use E-Miizaan for? -->
+          <div class="onboarding-step" data-step="2" hidden>
+            <p style="margin:0 0 14px;color:var(--muted);">What will you use E-Miizaan for?</p>
+            <div class="account-type-choice">
+              <div class="account-type-card selected" data-account-type="individual">
+                <div class="icon">👤</div>
+                <div>Individual</div>
+              </div>
+              <div class="account-type-card" data-account-type="small_business">
+                <div class="icon">🏪</div>
+                <div>Small Business</div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Step 3: details (conditional on account type) -->
+          <div class="onboarding-step" data-step="3" hidden>
+            <div class="field" data-business-only hidden>
+              <label for="regBizName">Business name</label>
+              <input type="text" id="regBizName" />
+            </div>
+            <div class="field" data-business-only hidden>
+              <label for="regOwnerName">Owner name</label>
+              <input type="text" id="regOwnerName" />
+            </div>
+            <div class="field">
+              <label>Currency</label>
+              <select id="regCurrency">
+                <option value="USD">USD — US Dollar</option>
+                <option value="SOS">SOS — Somali Shilling</option>
+                <option value="EUR">EUR — Euro</option>
+                <option value="GBP">GBP — British Pound</option>
+                <option value="KES">KES — Kenyan Shilling</option>
+                <option value="ETB">ETB — Ethiopian Birr</option>
+              </select>
+            </div>
+            <div class="field">
+              <label>Language</label>
+              <select id="regLanguage">
+                <option value="en">English</option>
+                <option value="so">Soomaali</option>
+                <option value="ar">العربية</option>
+              </select>
+            </div>
+          </div>
+
+          <!-- Step 4: appearance -->
+          <div class="onboarding-step" data-step="4" hidden>
+            <p style="margin:0 0 14px;color:var(--muted);">Choose your appearance</p>
+            <div class="radio-row">
+              <label class="radio-option"><input type="radio" name="regTheme" value="light" /> Light</label>
+              <label class="radio-option"><input type="radio" name="regTheme" value="dark" /> Dark</label>
+              <label class="radio-option"><input type="radio" name="regTheme" value="system" checked /> System</label>
+            </div>
+          </div>
+
+          <div class="form-actions" style="margin-top:18px;">
+            <button type="button" class="btn ghost" id="regBackBtn" hidden>Back</button>
+            <button type="button" class="btn" id="regNextBtn">Next</button>
+            <button type="submit" class="btn" id="regSubmitBtn" hidden>Create account</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <script src="js/config.js"></script>
+  <script src="js/api.js"></script>
+  <script src="js/icons.js"></script>
+  <script src="js/auth.js"></script>
+</body>
+</html>

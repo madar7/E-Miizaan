@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>E-Miizaan — Add Category</title>
+<script src="js/theme.js"></script>
+<script src="js/i18n/en.js"></script>
+<script src="js/i18n/so.js"></script>
+<script src="js/i18n/ar.js"></script>
+<script src="js/i18n/i18n.js"></script>
+<link rel="stylesheet" href="css/styles.css" />
+</head>
+<body data-page="categories">
+  <div class="titlebar" id="titlebar"></div>
+  <div class="app-shell">
+    <aside class="sidebar" id="sidebar"></aside>
+
+    <main class="main">
+      <div id="pageMsg" class="msg" hidden></div>
+
+      <section class="panel">
+        <h2 id="formTitle">Add Category</h2>
+        <form id="catForm" class="form-row">
+          <div class="field wide">
+            <label for="catName">Category name</label>
+            <input type="text" id="catName" required maxlength="40" placeholder="e.g. Groceries" />
+          </div>
+          <div class="field">
+            <label for="catType">Type</label>
+            <select id="catType">
+              <option value="income">Income</option>
+              <option value="expense">Expense</option>
+            </select>
+          </div>
+          <div class="form-actions">
+            <button type="submit" class="btn" id="saveBtn">Add Category</button>
+            <button type="button" class="btn ghost" id="cancelEdit" hidden>Cancel</button>
+          </div>
+        </form>
+      </section>
+
+      <div class="cat-grid">
+        <section class="panel">
+          <h2>Income Categories</h2>
+          <div class="table-wrap">
+            <table>
+              <thead><tr><th>Name</th><th></th></tr></thead>
+              <tbody id="incomeCats"></tbody>
+            </table>
+          </div>
+        </section>
+        <section class="panel">
+          <h2>Expense Categories</h2>
+          <div class="table-wrap">
+            <table>
+              <thead><tr><th>Name</th><th></th></tr></thead>
+              <tbody id="expenseCats"></tbody>
+            </table>
+          </div>
+        </section>
+      </div>
+    </main>
+  </div>
+
+  <script src="js/config.js"></script>
+  <script src="js/api.js"></script>
+  <script src="js/icons.js"></script>
+  <script src="js/layout.js"></script>
+  <script src="js/categories.js"></script>
+</body>
+</html>

@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>E-Miizaan — Settings</title>
+<script src="js/theme.js"></script>
+<script src="js/i18n/en.js"></script>
+<script src="js/i18n/so.js"></script>
+<script src="js/i18n/ar.js"></script>
+<script src="js/i18n/i18n.js"></script>
+<link rel="stylesheet" href="css/styles.css" />
+</head>
+<body data-page="settings">
+  <div class="titlebar" id="titlebar"></div>
+  <div class="app-shell">
+    <aside class="sidebar" id="sidebar"></aside>
+
+    <main class="main">
+      <h1 class="page-title" data-i18n="settings">Settings</h1>
+      <div id="pageMsg" class="msg" hidden></div>
+
+      <div class="settings-tabs" role="tablist">
+        <button type="button" class="settings-tab active" data-tab="account" data-i18n="account">Account</button>
+        <button type="button" class="settings-tab" data-tab="appearance" data-i18n="appearance">Appearance</button>
+        <button type="button" class="settings-tab" data-tab="language" data-i18n="language">Language</button>
+        <button type="button" class="settings-tab" data-tab="currency" data-i18n="currency">Currency</button>
+        <button type="button" class="settings-tab" data-tab="notifications" data-i18n="notifications">Notifications</button>
+        <button type="button" class="settings-tab" data-tab="privacy" data-i18n="privacySecurity">Privacy &amp; Security</button>
+      </div>
+
+      <!-- Account -->
+      <section class="panel settings-panel active" id="panel-account">
+        <div class="avatar-upload">
+          <img class="avatar-preview" id="avatarPreview" alt="" />
+          <div>
+            <input type="file" id="avatarFile" accept="image/jpeg,image/png,image/webp" hidden />
+            <button type="button" class="btn ghost" id="avatarUploadBtn">Change photo</button>
+            <button type="button" class="btn ghost" id="avatarRemoveBtn">Remove</button>
+            <p style="font-size:0.8125rem;color:var(--muted);margin:8px 0 0;">JPG, PNG or WEBP, up to 2MB.</p>
+          </div>
+        </div>
+        <form id="accountForm" class="form-row">
+          <div class="field">
+            <label data-i18n="fullName">Full name</label>
+            <input type="text" id="accName" required />
+          </div>
+          <div class="field">
+            <label>Email</label>
+            <input type="email" id="accEmail" disabled />
+          </div>
+          <div class="field">
+            <label>Phone</label>
+            <input type="text" id="accPhone" />
+          </div>
+          <div class="field">
+            <label>Country</label>
+            <input type="text" id="accCountry" />
+          </div>
+          <div class="field">
+            <label>Account type</label>
+            <select id="accType">
+              <option value="individual">Individual</option>
+              <option value="small_business">Small Business</option>
+            </select>
+          </div>
+          <div class="form-actions"><button type="submit" class="btn" data-i18n="save">Save</button></div>
+        </form>
+      </section>
+
+      <!-- Appearance -->
+      <section class="panel settings-panel" id="panel-appearance">
+        <h2 data-i18n="appearance">Appearance</h2>
+        <div class="radio-row" id="themeRadios">
+          <label class="radio-option"><input type="radio" name="themeChoice" value="light" /> <span data-i18n="light">Light</span></label>
+          <label class="radio-option"><input type="radio" name="themeChoice" value="dark" /> <span data-i18n="dark">Dark</span></label>
+          <label class="radio-option"><input type="radio" name="themeChoice" value="system" /> <span data-i18n="systemDefault">System Default</span></label>
+        </div>
+      </section>
+
+      <!-- Language -->
+      <section class="panel settings-panel" id="panel-language">
+        <h2 data-i18n="language">Language</h2>
+        <div class="radio-row" id="langRadios">
+          <label class="radio-option"><input type="radio" name="langChoice" value="en" /> English</label>
+          <label class="radio-option"><input type="radio" name="langChoice" value="so" /> Soomaali</label>
+          <label class="radio-option"><input type="radio" name="langChoice" value="ar" /> العربية</label>
+        </div>
+      </section>
+
+      <!-- Currency -->
+      <section class="panel settings-panel" id="panel-currency">
+        <h2 data-i18n="currency">Currency</h2>
+        <div class="field" style="max-width:220px;">
+          <select id="currencySelect">
+            <option value="USD">USD — US Dollar</option>
+            <option value="SOS">SOS — Somali Shilling</option>
+            <option value="EUR">EUR — Euro</option>
+            <option value="GBP">GBP — British Pound</option>
+            <option value="KES">KES — Kenyan Shilling</option>
+            <option value="ETB">ETB — Ethiopian Birr</option>
+          </select>
+        </div>
+        <div class="form-actions" style="margin-top:14px;"><button type="button" class="btn" id="saveCurrencyBtn" data-i18n="save">Save</button></div>
+      </section>
+
+      <!-- Notifications -->
+      <section class="panel settings-panel" id="panel-notifications">
+        <h2 data-i18n="notifications">Notifications</h2>
+        <div class="toggle-row"><span>Transaction notifications</span><input type="checkbox" id="notifTransactions" /></div>
+        <div class="toggle-row"><span>Account notifications</span><input type="checkbox" id="notifAccount" /></div>
+        <div class="toggle-row"><span>System notifications</span><input type="checkbox" id="notifSystem" /></div>
+        <div class="toggle-row"><span>User-management notifications</span><input type="checkbox" id="notifUserManagement" /></div>
+        <div class="form-actions" style="margin-top:14px;"><button type="button" class="btn" id="saveNotifBtn" data-i18n="save">Save</button></div>
+      </section>
+
+      <!-- Privacy & Security -->
+      <section class="panel settings-panel" id="panel-privacy">
+        <h2 data-i18n="privacySecurity">Privacy &amp; Security</h2>
+        <form id="passwordForm" class="form-row">
+          <div class="field">
+            <label>Current password</label>
+            <input type="password" id="curPassword" required />
+          </div>
+          <div class="field">
+            <label data-i18n="changePassword">Change password</label>
+            <input type="password" id="newPassword" required minlength="6" placeholder="New password" />
+          </div>
+          <div class="form-actions"><button type="submit" class="btn" data-i18n="save">Save</button></div>
+        </form>
+
+        <hr style="border:none;border-top:1px solid var(--line);margin:24px 0;" />
+        <h2 data-i18n="deactivateAccount">Deactivate account</h2>
+        <p style="font-size:0.9375rem;color:var(--muted);">You won't be able to sign in again until an administrator reactivates your account.</p>
+        <button type="button" class="btn" style="background:var(--danger);" id="deactivateBtn" data-i18n="deactivateAccount">Deactivate account</button>
+      </section>
+    </main>
+  </div>
+
+  <script src="js/config.js"></script>
+  <script src="js/api.js"></script>
+  <script src="js/icons.js"></script>
+  <script src="js/layout.js"></script>
+  <script src="js/settings.js"></script>
+</body>
+</html>

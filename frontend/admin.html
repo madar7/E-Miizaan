@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>E-Miizaan — Users</title>
+<script src="js/theme.js"></script>
+<script src="js/i18n/en.js"></script>
+<script src="js/i18n/so.js"></script>
+<script src="js/i18n/ar.js"></script>
+<script src="js/i18n/i18n.js"></script>
+<link rel="stylesheet" href="css/styles.css" />
+</head>
+<body data-page="users">
+  <div class="titlebar" id="titlebar"></div>
+  <div class="app-shell">
+    <aside class="sidebar" id="sidebar"></aside>
+
+    <main class="main">
+      <div id="pageMsg" class="msg" hidden></div>
+
+      <section class="panel" id="accessDenied" hidden>
+        <h2>Admin access required</h2>
+        <p>Only the owner (admin) can manage users.</p>
+      </section>
+
+      <section class="panel" id="overviewPanel">
+        <h2>Overview</h2>
+        <div class="tiles" id="overviewTiles"></div>
+        <div style="margin-top:14px;font-size:0.875rem;color:var(--muted);" id="recentSignups"></div>
+      </section>
+
+      <section class="panel" id="adminContent">
+        <div class="topbar" style="display:flex;justify-content:space-between;align-items:center;margin-bottom:14px;flex-wrap:wrap;gap:8px;">
+          <h2 style="margin:0;" data-i18n="manageUsers">All Users</h2>
+          <div style="display:flex;gap:8px;">
+            <button type="button" class="btn ghost small" id="exportUsersBtn">Export CSV</button>
+            <button type="button" class="btn small" id="addUserBtn" data-i18n="addUser" hidden>+ Add User</button>
+          </div>
+        </div>
+
+        <form id="addUserForm" class="form-row panel" style="background:var(--bg);margin-bottom:16px;" hidden>
+          <div class="field"><label>Full name</label><input type="text" id="newName" required /></div>
+          <div class="field"><label>Username</label><input type="text" id="newUsername" required minlength="3" maxlength="30" /></div>
+          <div class="field"><label>Email</label><input type="email" id="newEmail" required /></div>
+          <div class="field"><label>Password</label><input type="password" id="newPassword" required minlength="6" /></div>
+          <div class="field" id="newRoleField" hidden>
+            <label>Role</label>
+            <select id="newRole"><option value="user">User</option><option value="admin">Admin</option></select>
+          </div>
+          <div class="form-actions">
+            <button type="submit" class="btn">Create</button>
+            <button type="button" class="btn ghost" id="cancelAddUser">Cancel</button>
+          </div>
+        </form>
+
+        <div class="filters">
+          <input type="text" id="searchInput" placeholder="Search name, username or email…" />
+          <select id="roleFilter">
+            <option value="">All roles</option>
+            <option value="user">User</option>
+            <option value="admin">Admin</option>
+          </select>
+          <select id="approvalFilter">
+            <option value="">All statuses</option>
+            <option value="pending">Pending approval</option>
+            <option value="approved">Approved</option>
+            <option value="rejected">Rejected</option>
+          </select>
+        </div>
+
+        <div class="table-wrap">
+          <table>
+            <thead>
+              <tr>
+                <th></th>
+                <th>Name</th>
+                <th>Username</th>
+                <th>Email</th>
+                <th>Account</th>
+                <th>Role</th>
+                <th>Status</th>
+                <th>Created by</th>
+                <th class="num">Transactions</th>
+                <th>Joined</th>
+                <th></th>
+              </tr>
+            </thead>
+            <tbody id="userTableBody"></tbody>
+          </table>
+        </div>
+        <div id="emptyState" class="empty-state" hidden>No users found.</div>
+        <div class="pagination">
+          <span id="userPageInfo"></span>
+          <button id="userPrev">Prev</button>
+          <button id="userNext">Next</button>
+        </div>
+      </section>
+
+      <div class="modal-backdrop" id="editUserModal" style="display:none;position:fixed;inset:0;background:rgba(0,0,0,0.4);align-items:center;justify-content:center;z-index:50;">
+        <form class="panel" id="editUserForm" style="max-width:380px;width:100%;">
+          <h2 style="margin-top:0;">Edit user</h2>
+          <input type="hidden" id="editUserId" />
+          <div class="field"><label>Full name</label><input type="text" id="editName" required /></div>
+          <div class="field"><label>Email</label><input type="email" id="editEmail" required /></div>
+          <div class="field"><label>Phone</label><input type="text" id="editPhone" /></div>
+          <div class="form-actions" style="margin-top:14px;">
+            <button type="submit" class="btn">Save</button>
+            <button type="button" class="btn ghost" id="cancelEditUser">Cancel</button>
+          </div>
+        </form>
+      </div>
+
+      <section class="panel" id="systemSettingsPanel" hidden>
+        <h2>User-Management Settings</h2>
+        <div class="toggle-row"><span>Allow User Registration</span><input type="checkbox" id="setAllowRegistration" /></div>
+        <div class="toggle-row"><span>Allow Users to Create Users</span><input type="checkbox" id="setAllowUsersCreateUsers" /></div>
+        <div class="toggle-row"><span>Require Admin Approval</span><input type="checkbox" id="setRequireApproval" /></div>
+        <div class="toggle-row"><span>Allow Users to Deactivate Own Account</span><input type="checkbox" id="setAllowSelfDeactivate" /></div>
+        <div class="toggle-row">
+          <span>Maximum Users (0 = unlimited)</span>
+          <input type="number" id="setMaxUsers" min="0" style="width:100px;min-height:36px;" />
+        </div>
+        <div class="form-actions" style="margin-top:14px;"><button type="button" class="btn" id="saveSettingsBtn">Save settings</button></div>
+      </section>
+
+      <section class="panel">
+        <div class="topbar" style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:8px;">
+          <h2 style="margin:0;">Audit Log</h2>
+          <button type="button" class="btn ghost small" id="exportAuditBtn">Export CSV</button>
+        </div>
+        <p class="panel-sub" style="font-size:12.5px;color:var(--muted);margin:0 0 14px;">Recent sensitive actions: logins, and transaction/category/user changes.</p>
+        <div class="filters">
+          <select id="auditActionFilter">
+            <option value="">All actions</option>
+            <option value="login">Login</option>
+            <option value="register">Register</option>
+            <option value="transaction.create">Transaction created</option>
+            <option value="transaction.update">Transaction updated</option>
+            <option value="transaction.delete">Transaction deleted</option>
+            <option value="category.create">Category created</option>
+            <option value="category.update">Category renamed</option>
+            <option value="category.delete">Category deleted</option>
+            <option value="user.role_change">Role changed</option>
+            <option value="user.status_change">Status changed</option>
+            <option value="user.updated">User details updated</option>
+            <option value="user.created">User created</option>
+            <option value="user.approved">User approved</option>
+            <option value="user.rejected">User rejected</option>
+            <option value="user.delete">User deleted</option>
+            <option value="settings.updated">System settings changed</option>
+          </select>
+        </div>
+        <div class="table-wrap">
+          <table>
+            <thead>
+              <tr>
+                <th>When</th>
+                <th>User</th>
+                <th>Action</th>
+                <th>Detail</th>
+              </tr>
+            </thead>
+            <tbody id="auditTableBody"></tbody>
+          </table>
+        </div>
+        <div id="auditEmpty" class="empty-state" hidden>No audit activity yet.</div>
+        <div class="pagination">
+          <span id="auditPageInfo"></span>
+          <button id="auditPrev">Prev</button>
+          <button id="auditNext">Next</button>
+        </div>
+      </section>
+    </main>
+  </div>
+
+  <script src="js/config.js"></script>
+  <script src="js/api.js"></script>
+  <script src="js/icons.js"></script>
+  <script src="js/layout.js"></script>
+  <script src="js/admin.js"></script>
+</body>
+</html>
